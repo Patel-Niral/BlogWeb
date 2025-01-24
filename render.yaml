@@ -2,9 +2,8 @@ services:
   - type: web
     name: blogweb
     env: php
-    buildCommand: "composer install --no-dev --optimize-autoloader"
-    startCommand: "php -S 0.0.0.0:8080"
-    plan: free
-    branches:
-      - main
-    timeout: 5m
+    buildCommand: |
+      curl -sS https://getcomposer.org/installer | php
+      php composer.phar install
+    startCommand: php -S 0.0.0.0:8080 -t public
+    autoDeploy: true
